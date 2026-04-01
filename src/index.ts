@@ -13,7 +13,7 @@ async function main(): Promise<void> {
     maxItems: env.MAX_ITEMS
   });
 
-  const message = formatWeeklyMessage(texts, env.WORDS_PER_ITEM);
+  const message = formatWeeklyMessage(texts);
 
   await sendTelegramMessage({
     token: env.TELEGRAM_BOT_TOKEN,
