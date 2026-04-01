@@ -2,9 +2,6 @@ import { Client } from "pg";
 
 export async function fetchWeeklyTexts(params: {
   databaseUrl: string;
-  table: string;
-  textColumn: string;
-  createdAtColumn: string;
   maxItems: number;
 }): Promise<string[]> {
   // Простой вариант без ORM: подключаемся по DATABASE_URL Railway
@@ -12,13 +9,11 @@ export async function fetchWeeklyTexts(params: {
   await client.connect();
 
   try {
-    // Важно: имена таблицы/колонок нельзя передавать параметрами SQL.
-    // Тут оставляем как есть, но полагаемся, что значения приходят из env (trusted).
     const query = `
-      select ${params.textColumn} as text
-      from ${params.table}
-      where ${params.createdAtColumn} >= now() - interval '7 days'
-      order by ${params.createdAtColumn} desc
+      select headline as text
+      from "TelegramPost"
+      where "createdAt" >= now() - interval '7 days'
+      order by "createdAt" desc
       limit $1
     `;
 

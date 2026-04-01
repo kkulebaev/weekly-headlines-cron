@@ -5,16 +5,9 @@ const envSchema = z.object({
   TELEGRAM_BOT_TOKEN: z.string().min(1),
   TELEGRAM_CHAT_ID: z.string().min(1),
 
-  // Например: "notes". Используется для простого SELECT.
-  HEADLINES_TABLE: z.string().min(1).default("headlines"),
+  // Таблица/колонки зафиксированы под схему проекта
 
-  // Поле, из которого берём текст
-  TEXT_COLUMN: z.string().min(1).default("text"),
-
-  // Поле для фильтра по дате
-  CREATED_AT_COLUMN: z.string().min(1).default("created_at"),
-
-  // Сколько слов брать из text
+  // Сколько слов брать из headline
   WORDS_PER_ITEM: z.coerce.number().int().positive().default(6),
 
   // Сколько строк максимум в одном сообщении
