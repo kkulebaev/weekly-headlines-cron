@@ -2,6 +2,9 @@ export type Env = {
   DATABASE_URL: string;
   TELEGRAM_BOT_TOKEN: string;
   TELEGRAM_CHAT_ID: string;
+
+  TGSTAT_API_KEY: string;
+  TGSTAT_CHANNEL_ID: string;
 };
 
 function requireEnv(name: keyof Env): string {
@@ -16,6 +19,9 @@ export function getEnv(): Env {
   return {
     DATABASE_URL: requireEnv("DATABASE_URL"),
     TELEGRAM_BOT_TOKEN: requireEnv("TELEGRAM_BOT_TOKEN"),
-    TELEGRAM_CHAT_ID: requireEnv("TELEGRAM_CHAT_ID")
+    TELEGRAM_CHAT_ID: requireEnv("TELEGRAM_CHAT_ID"),
+
+    TGSTAT_API_KEY: requireEnv("TGSTAT_API_KEY"),
+    TGSTAT_CHANNEL_ID: requireEnv("TGSTAT_CHANNEL_ID")
   };
 }
