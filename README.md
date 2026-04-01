@@ -45,6 +45,3 @@ npm run start
 npm run start
 ```
 
----
-
-Made by @kkulebaev
