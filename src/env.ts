@@ -7,8 +7,6 @@ const envSchema = z.object({
 
   // Таблица/колонки зафиксированы под схему проекта
 
-  // Сколько строк максимум в одном сообщении
-  MAX_ITEMS: z.coerce.number().int().positive().default(50)
 });
 
 export type Env = z.infer<typeof envSchema>;
