@@ -10,9 +10,6 @@ async function main(): Promise<void> {
 
   const texts = await fetchWeeklyTexts({
     databaseUrl: env.DATABASE_URL,
-    table: env.HEADLINES_TABLE,
-    textColumn: env.TEXT_COLUMN,
-    createdAtColumn: env.CREATED_AT_COLUMN,
     maxItems: env.MAX_ITEMS
   });
 
