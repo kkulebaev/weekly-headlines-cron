@@ -1,20 +1,9 @@
-export function takeWords(text: string, words: number): string {
-  return text
-    .trim()
-    .split(/\s+/)
-    .slice(0, words)
-    .join(" ");
-}
-
-export function formatWeeklyMessage(items: string[], wordsPerItem: number): string {
+export function formatWeeklyMessage(items: string[]): string {
   if (items.length === 0) {
     return "За последнюю неделю записей не нашлось.";
   }
 
-  const lines = items.map((t, idx) => {
-    const snippet = takeWords(t, wordsPerItem);
-    return `${idx + 1}. ${snippet}`;
-  });
+  const lines = items.map((t, idx) => `${idx + 1}. ${t.trim()}`);
 
   return `Заголовки за неделю (${items.length}):\n\n${lines.join("\n")}`;
 }

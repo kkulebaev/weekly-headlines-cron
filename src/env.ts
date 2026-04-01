@@ -7,9 +7,6 @@ const envSchema = z.object({
 
   // Таблица/колонки зафиксированы под схему проекта
 
-  // Сколько слов брать из headline
-  WORDS_PER_ITEM: z.coerce.number().int().positive().default(6),
-
   // Сколько строк максимум в одном сообщении
   MAX_ITEMS: z.coerce.number().int().positive().default(50)
 });
