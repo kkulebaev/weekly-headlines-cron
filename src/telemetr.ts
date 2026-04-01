@@ -20,7 +20,7 @@ export async function fetchTelemetrMessageViews(params: {
   messageId: number;
   aggregation?: "day" | "hour";
 }): Promise<TelemetrMessageViews> {
-  const url = new URL("https://api.telemetr.io/channels/message_views");
+  const url = new URL("https://api.telemetr.io/v1/messages/views");
   url.searchParams.set("internal_id", params.channelInternalId);
   url.searchParams.set("message_id", String(params.messageId));
   url.searchParams.set("aggregation", params.aggregation ?? "day");
@@ -33,7 +33,9 @@ export async function fetchTelemetrMessageViews(params: {
 
   if (!res.ok) {
     const body = await res.text().catch(() => "");
-    throw new Error(`Telemetr message_views failed: ${res.status} ${body}`);
+    throw new Error(
+      `Telemetr messages/views failed: ${res.status} url=${url.toString()} ${body}`
+    );
   }
 
   const json: unknown = await res.json();
