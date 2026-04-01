@@ -1,5 +1,5 @@
 import type { WeeklyPost } from "./db.js";
-import type { TgstatPostStat } from "./tgstat.js";
+import type { TelemetrMessageViews } from "./telemetr.js";
 
 export const DEFAULT_DIGEST_LIMIT = 10;
 
@@ -9,27 +9,26 @@ const WEIGHT_SHARES = 5;
 const WEIGHT_COMMENTS = 8;
 const WEIGHT_REACTIONS = 3;
 
-export function calcInterestScore(stat: TgstatPostStat): number {
+export function calcInterestScore(stat: TelemetrMessageViews): number {
   return (
-    stat.viewsCount * WEIGHT_VIEWS +
-    stat.sharesCount * WEIGHT_SHARES +
-    stat.commentsCount * WEIGHT_COMMENTS +
-    stat.reactionsCount * WEIGHT_REACTIONS
+    stat.views * WEIGHT_VIEWS +
+    stat.forwards_count * WEIGHT_SHARES +
+    stat.comments_count * WEIGHT_COMMENTS +
+    stat.reactions_count * WEIGHT_REACTIONS
   );
 }
 
 export function pickTopPosts(params: {
   posts: WeeklyPost[];
-  statsByPostId: Map<number, TgstatPostStat>;
+  statsByMessageId: Map<number, TelemetrMessageViews>;
   limit: number;
 }): WeeklyPost[] {
   const scored = params.posts
     .map((p) => {
-      const stat = params.statsByPostId.get(p.messageId);
+      const stat = params.statsByMessageId.get(p.messageId);
       const score = stat ? calcInterestScore(stat) : 0;
       return { post: p, score };
     })
-    // сначала по score, затем по свежести (в исходном списке уже desc по createdAt)
     .sort((a, b) => b.score - a.score);
 
   return scored.slice(0, params.limit).map((s) => s.post);

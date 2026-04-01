@@ -3,7 +3,7 @@ import { fetchWeeklyPosts } from "./db.js";
 import { formatWeeklyMessage } from "./format.js";
 import { DEFAULT_DIGEST_LIMIT, pickTopPosts } from "./rank.js";
 import { sendTelegramMessage } from "./telegram.js";
-import { fetchTgstatPostsStats } from "./tgstat.js";
+import { fetchTelemetrStatsForMessages } from "./telemetr.js";
 
 function formatDateRu(d: Date): string {
   const dd = String(d.getUTCDate()).padStart(2, "0");
@@ -22,15 +22,15 @@ async function main(): Promise<void> {
 
   const postIds = weeklyPosts.map((p) => p.messageId);
 
-  const statsByPostId = await fetchTgstatPostsStats({
-    apiKey: env.TGSTAT_API_KEY,
-    channelId: env.TGSTAT_CHANNEL_ID,
-    postIds
+  const statsByMessageId = await fetchTelemetrStatsForMessages({
+    apiKey: env.TELEMETR_API_KEY,
+    channelInternalId: env.TELEMETR_CHANNEL_INTERNAL_ID,
+    messageIds: postIds
   });
 
   const topPosts = pickTopPosts({
     posts: weeklyPosts,
-    statsByPostId,
+    statsByMessageId,
     limit: DEFAULT_DIGEST_LIMIT
   });
 
