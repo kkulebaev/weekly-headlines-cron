@@ -8,7 +8,7 @@
   <a href="https://github.com/kkulebaev/weekly-headlines-cron/actions/workflows/ci.yml">
     <img alt="CI" src="https://img.shields.io/github/actions/workflow/status/kkulebaev/weekly-headlines-cron/ci.yml?branch=main" />
   </a>
-  <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D20-339933?logo=node.js&logoColor=white" />
+  <img alt="Node" src="https://img.shields.io/badge/node-%3E%3D22-339933?logo=node.js&logoColor=white" />
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-5+-3178C6?logo=typescript&logoColor=white" />
   <img alt="License" src="https://img.shields.io/github/license/kkulebaev/weekly-headlines-cron" />
 </p>
