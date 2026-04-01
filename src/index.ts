@@ -1,5 +1,3 @@
-import "dotenv/config";
-
 import { getEnv } from "./env.js";
 import { fetchWeeklyTexts } from "./db.js";
 import { formatWeeklyMessage } from "./format.js";
