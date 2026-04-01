@@ -10,7 +10,7 @@ async function main(): Promise<void> {
 
   const texts = await fetchWeeklyTexts({
     databaseUrl: env.DATABASE_URL,
-    maxItems: 1000
+    maxItems: 20
   });
 
   const message = formatWeeklyMessage(texts);
