@@ -1,22 +1,21 @@
-import { z } from "zod";
+export type Env = {
+  DATABASE_URL: string;
+  TELEGRAM_BOT_TOKEN: string;
+  TELEGRAM_CHAT_ID: string;
+};
 
-const envSchema = z.object({
-  DATABASE_URL: z.string().min(1),
-  TELEGRAM_BOT_TOKEN: z.string().min(1),
-  TELEGRAM_CHAT_ID: z.string().min(1),
-
-  // Таблица/колонки зафиксированы под схему проекта
-
-});
-
-export type Env = z.infer<typeof envSchema>;
+function requireEnv(name: keyof Env): string {
+  const value = process.env[name];
+  if (typeof value !== "string" || value.trim().length === 0) {
+    throw new Error(`Missing required env: ${name}`);
+  }
+  return value;
+}
 
 export function getEnv(): Env {
-  const parsed = envSchema.safeParse(process.env);
-  if (!parsed.success) {
-    throw new Error(
-      `Invalid env: ${JSON.stringify(parsed.error.flatten().fieldErrors)}`
-    );
-  }
-  return parsed.data;
+  return {
+    DATABASE_URL: requireEnv("DATABASE_URL"),
+    TELEGRAM_BOT_TOKEN: requireEnv("TELEGRAM_BOT_TOKEN"),
+    TELEGRAM_CHAT_ID: requireEnv("TELEGRAM_CHAT_ID")
+  };
 }
