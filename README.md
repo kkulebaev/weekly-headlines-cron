@@ -1,5 +1,16 @@
 # Weekly Headlines Cron
 
+<p align="center">
+  <img alt="Weekly Headlines Cron banner" src="https://capsule-render.vercel.app/api?type=waving&color=0:111827,100:2563eb&height=180&section=header&text=Weekly%20Headlines%20Cron&fontSize=42&fontColor=ffffff" />
+</p>
+
+<p align="center">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Railway-7B3FE4" />
+  <img alt="Language" src="https://img.shields.io/badge/language-TypeScript-3178C6?logo=typescript&logoColor=white" />
+  <img alt="Runtime" src="https://img.shields.io/badge/runtime-Bun-000000?logo=bun&logoColor=white" />
+  <img alt="Database" src="https://img.shields.io/badge/database-PostgreSQL-4169E1?logo=postgresql&logoColor=white" />
+</p>
+
 A tiny **Railway Scheduler** job that runs once a week:
 
 1. Connects to Postgres via `DATABASE_URL`
