@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1
 
 # Лёгкий образ с Bun (официальный)
-FROM oven/bun:1.2.22-alpine
+FROM oven/bun:1.3.11-alpine
 
 WORKDIR /app
 
