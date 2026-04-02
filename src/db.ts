@@ -1,4 +1,4 @@
-import { sql } from "bun";
+import { SQL } from "bun";
 
 export type WeeklyPost = {
   messageId: number;
@@ -11,7 +11,7 @@ export async function fetchWeeklyPosts(params: {
   maxItems: number;
 }): Promise<WeeklyPost[]> {
   // Bun встроенно поддерживает PostgreSQL через `bun:sql`
-  const db = sql({ url: params.databaseUrl });
+  const db = new SQL(params.databaseUrl);
 
   const rows = await db<{
     messageId: number | null;
