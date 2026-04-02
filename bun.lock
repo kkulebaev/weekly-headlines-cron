@@ -1,0 +1,10 @@
+{
+  "lockfileVersion": 0,
+  "workspaces": {
+    "": {
+      "name": "weekly-headlines-bot",
+      "dependencies": {}
+    }
+  },
+  "packages": {}
+}
