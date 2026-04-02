@@ -12,15 +12,19 @@ export function formatWeeklyMessage(params: {
   dateTo: string;
   posts: WeeklyPost[];
 }): string {
+  const title = `🔥 <b>Самое интересное за неделю</b> <i>(${params.dateFrom}–${params.dateTo})</i>`;
+  const subtitle =
+    "<i>Топ-10 постов недели по вовлечению: что смотрели, обсуждали и репостили чаще всего.</i>";
+
   if (params.posts.length === 0) {
-    return `🗞 Дайджест за неделю (${params.dateFrom}–${params.dateTo})\n\nЗа последнюю неделю постов не нашлось.`;
+    return `${title}\n${subtitle}\n\nЗа последнюю неделю постов не нашлось.`;
   }
 
-  const lines = params.posts.map((p, idx) => {
-    const title = escapeHtml(p.headline.trim());
-    const url = escapeHtml(p.postUrl.trim());
-    return `${idx + 1}) <a href="${url}">${title}</a>`;
+  const lines = params.posts.map((p) => {
+    const safeHeadline = escapeHtml(p.headline.trim());
+    const safeUrl = escapeHtml(p.postUrl.trim());
+    return `— <a href="${safeUrl}">${safeHeadline}</a>`;
   });
 
-  return `🗞 Дайджест за неделю (${params.dateFrom}–${params.dateTo})\n\n${lines.join("\n")}`;
+  return `${title}\n${subtitle}\n\n${lines.join("\n")}`;
 }
