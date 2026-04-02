@@ -1,5 +1,5 @@
-import {DEFAULT_DIGEST_LIMIT} from './rank.js'
-import type {WeeklyPost} from './db.js'
+import { DEFAULT_DIGEST_LIMIT } from "./rank.js";
+import type { WeeklyPost } from "./db.js";
 
 function escapeHtml(text: string): string {
   return text
