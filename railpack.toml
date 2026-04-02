@@ -1,1 +1,4 @@
 [languages.bun]
+
+[languages.node]
+disabled = true
