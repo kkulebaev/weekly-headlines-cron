@@ -37,7 +37,7 @@ async function main(): Promise<void> {
 
   if (weeklyPosts.length > 0) {
     log("debug", "Weekly posts preview", {
-      items: weeklyPosts.slice(0, 20).map((p) => ({
+      items: weeklyPosts.map((p) => ({
         messageId: p.messageId,
         headline: p.headline,
         postUrl: p.postUrl

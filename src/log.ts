@@ -7,16 +7,10 @@ const levelOrder: Record<LogLevel, number> = {
   error: 40
 };
 
-function getLogLevel(): LogLevel {
-  const raw = process.env.LOG_LEVEL;
-  if (raw === "debug" || raw === "info" || raw === "warn" || raw === "error") {
-    return raw;
-  }
-  return "info";
-}
+const DEFAULT_LEVEL: LogLevel = "info";
 
 function shouldLog(level: LogLevel): boolean {
-  return levelOrder[level] >= levelOrder[getLogLevel()];
+  return levelOrder[level] >= levelOrder[DEFAULT_LEVEL];
 }
 
 function nowIso(): string {
@@ -43,7 +37,6 @@ export function log(level: LogLevel, message: string, ctx?: Record<string, unkno
   if (!shouldLog(level)) return;
 
   const line = `[${level.toUpperCase()}] ${nowIso()} ${message}${fmtContext(ctx)}`;
-  // eslint-disable-next-line no-console
   console.log(line);
 }
 
