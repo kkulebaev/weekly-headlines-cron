@@ -1,0 +1,23 @@
+# dependencies
+node_modules
+
+# build artifacts
+/dist
+
+# logs
+*.log
+
+# misc
+.DS_Store
+
+# VCS
+.git
+.gitignore
+
+# dotenv / secrets
+.env
+.env.*
+
+# editor
+.vscode
+.idea
