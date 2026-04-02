@@ -1,4 +1,4 @@
-import { Client } from "pg";
+import { sql } from "bun";
 
 export type WeeklyPost = {
   messageId: number;
@@ -10,38 +10,34 @@ export async function fetchWeeklyPosts(params: {
   databaseUrl: string;
   maxItems: number;
 }): Promise<WeeklyPost[]> {
-  // Простой вариант без ORM: подключаемся по DATABASE_URL Railway
-  const client = new Client({ connectionString: params.databaseUrl });
-  await client.connect();
+  // Bun встроенно поддерживает PostgreSQL через `bun:sql`
+  const db = sql({ url: params.databaseUrl });
 
-  try {
-    const query = `
-      select
-        "messageId" as "messageId",
-        "postUrl" as "postUrl",
-        headline as headline
-      from "TelegramPost"
-      where "createdAt" >= now() - interval '7 days'
-      order by "createdAt" desc
-      limit $1
-    `;
+  const rows = await db<{
+    messageId: number | null;
+    postUrl: string | null;
+    headline: string | null;
+  }>`
+    select
+      "messageId" as "messageId",
+      "postUrl" as "postUrl",
+      headline as headline
+    from "TelegramPost"
+    where "createdAt" >= now() - interval '7 days'
+    order by "createdAt" desc
+    limit ${params.maxItems}
+  `;
 
-    const result = await client.query<{
-      messageId: number | null;
-      postUrl: string | null;
-      headline: string | null;
-    }>(query, [params.maxItems]);
+  // Закрываем соединение явно, чтобы в Railway не висели хэндлы
+  await db.close();
 
-    return result.rows
-      .map((r) => ({
-        messageId: r.messageId ?? 0,
-        postUrl: r.postUrl ?? "",
-        headline: r.headline ?? ""
-      }))
-      .filter((p) => p.messageId > 0)
-      .filter((p) => p.postUrl.trim().length > 0)
-      .filter((p) => p.headline.trim().length > 0);
-  } finally {
-    await client.end();
-  }
+  return rows
+    .map((r) => ({
+      messageId: r.messageId ?? 0,
+      postUrl: r.postUrl ?? "",
+      headline: r.headline ?? ""
+    }))
+    .filter((p) => p.messageId > 0)
+    .filter((p) => p.postUrl.trim().length > 0)
+    .filter((p) => p.headline.trim().length > 0);
 }
