@@ -1,3 +1,4 @@
+import { DEFAULT_DIGEST_LIMIT } from "./rank.js";
 import type { WeeklyPost } from "./db.js";
 
 function escapeHtml(text: string): string {
@@ -13,8 +14,7 @@ export function formatWeeklyMessage(params: {
   posts: WeeklyPost[];
 }): string {
   const title = `🔥 <b>Самое интересное за неделю</b> <i>(${params.dateFrom}–${params.dateTo})</i>`;
-  const subtitle =
-    "<i>Топ-10 постов недели по вовлечению: что смотрели, обсуждали и репостили чаще всего.</i>";
+  const subtitle = `<i>Топ-${DEFAULT_DIGEST_LIMIT} постов недели по вовлечению: что смотрели, обсуждали и репостили чаще всего.</i>`;
 
   if (params.posts.length === 0) {
     return `${title}\n\n${subtitle}\n\nЗа последнюю неделю постов не нашлось.`;
