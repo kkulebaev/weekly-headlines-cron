@@ -17,7 +17,7 @@ export function formatWeeklyMessage(params: {
     "<i>Топ-10 постов недели по вовлечению: что смотрели, обсуждали и репостили чаще всего.</i>";
 
   if (params.posts.length === 0) {
-    return `${title}\n${subtitle}\n\nЗа последнюю неделю постов не нашлось.`;
+    return `${title}\n\n${subtitle}\n\nЗа последнюю неделю постов не нашлось.`;
   }
 
   const lines = params.posts.map((p) => {
@@ -26,5 +26,5 @@ export function formatWeeklyMessage(params: {
     return `— <a href="${safeUrl}">${safeHeadline}</a>`;
   });
 
-  return `${title}\n${subtitle}\n\n${lines.join("\n")}`;
+  return `${title}\n\n${subtitle}\n\n${lines.join("\n")}`;
 }

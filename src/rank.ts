@@ -1,7 +1,7 @@
 import type { WeeklyPost } from "./db.js";
 import type { TelemetrMessageViews } from "./telemetr.js";
 
-export const DEFAULT_DIGEST_LIMIT = 10;
+export const DEFAULT_DIGEST_LIMIT = 5;
 
 // Веса захардкожены по договорённости
 const WEIGHT_VIEWS = 1;
